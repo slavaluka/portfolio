@@ -22,7 +22,12 @@ body {
 
 @layer base {
   main {
-    @apply flex justify-center px-6 pb-24 pt-8 sm:pb-28 sm:pt-32;
+    @apply flex flex-col justify-center;
+    @apply px-6 pb-24 pt-8 sm:pb-28 sm:pt-32;
+  }
+
+  section {
+    @apply max-w-184 w-full mx-auto;
   }
 
   p {
@@ -42,7 +47,8 @@ body {
   }
 
   a {
-    @apply underline underline-offset-3 text-[15px];
+    @apply text-[15px];
+    @apply underline underline-offset-3;
   }
 
   dl {

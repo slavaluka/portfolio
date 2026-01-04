@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import Badge from '../ui/Badge.astro';
 import superpowerIcon from '../assets/superpower-ios-icon.webp';
 import amorusIcon from '../assets/amorus-ios-icon.webp';
 import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
@@ -24,12 +25,9 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
           />
           <div>
             <p>
-              Superpower <span
-                class='ml-0.5 text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs'
-                >iOS</span
-              >
+              Superpower <Badge class='ml-0.5'>iOS</Badge>
             </p>
-            <p class='text-tertiary text-sm'>
+            <p class='caption'>
               An ecosystem of diagnostic tools and clinician-trusted solutions,
               personalized to individual patient needs.
             </p>
@@ -60,10 +58,8 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
           class='rounded-lg w-10 h-10 pointer-events-none group-hover:-rotate-15 transition duration-300 ease-in-out'
         />
         <div>
-          <div class='flex items-center gap-1.5'>
-            <p>Amorus</p>
-          </div>
-          <p class='text-tertiary text-sm'>
+          <p>Amorus</p>
+          <p class='caption'>
             A private, secure gaming and messaging platform designed to enhance
             intimacy and connection between consenting partners.
           </p>
@@ -84,11 +80,8 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
           class='rounded-lg w-10 h-10 pointer-events-none group-hover:-rotate-12 transition duration-300 ease-in-out'
         />
         <div>
-          <div class='flex items-center gap-1.5'>
-            <p>Roadsider</p>
-          </div>
-
-          <p class='text-tertiary text-sm'>
+          <p>Roadsider</p>
+          <p class='caption'>
             A highly automated, end-to-end roadside assistance platform built
             for speed, scale, and operational efficiency.
           </p>

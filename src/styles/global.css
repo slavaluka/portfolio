@@ -94,4 +94,8 @@ body {
   .dd-entry-subsequent {
     @apply border-none pt-0;
   }
+
+  .caption {
+    @apply text-sm text-tertiary;
+  }
 }

@@ -22,7 +22,7 @@ body {
 
 @layer base {
   main {
-    @apply flex flex-col justify-center;
+    @apply flex flex-col;
     @apply px-6 pb-24 pt-8 sm:pb-28 sm:pt-32;
   }
 

@@ -41,6 +41,10 @@ body {
     @apply text-[15px];
   }
 
+  a {
+    @apply underline underline-offset-3 text-[15px];
+  }
+
   dl {
     @apply mb-12 grid grid-cols-12 gap-8 gap-y-2 sm:mb-16 sm:gap-y-4;
   }
@@ -51,5 +55,37 @@ body {
 
   dd {
     @apply col-span-12 border-solid border-neutral-500/10 dark:border-neutral-900 sm:col-span-8 sm:border-t;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: auto;
+    image-rendering: smooth;
+  }
+}
+
+@layer components {
+  .dt-first {
+    @apply border-none;
+  }
+
+  .dt-entry {
+    @apply pt-4;
+  }
+
+  .dt-entry-subsequent {
+    @apply border-none pt-4 sm:pt-0;
+  }
+
+  .dd-first {
+    @apply border-none;
+  }
+
+  .dd-entry {
+    @apply pt-4;
+  }
+
+  .dd-entry-subsequent {
+    @apply border-none pt-0;
   }
 }

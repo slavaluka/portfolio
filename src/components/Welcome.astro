@@ -1,19 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import superpowerIcon from '../assets/superpower-ios-icon.webp';
+import amorusIcon from '../assets/amorus-ios-icon.webp';
+import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
+---
+
 <div id='container'>
   <main>
     <section class='flex flex-col max-w-184 w-full mx-auto'>
       <!-- About -->
       <dl>
-        <dt class='border-none'>
+        <dt class='dt-first'>
           <h2>Sláva Lukianchuk</h2>
           <p class='text-tertiary'>Software Engineer</p>
           <p class='text-tertiary'>Warsaw, Poland</p>
         </dt>
-        <dd class='border-none'>
+        <dd class='dd-first'>
           <p>
             Currently a Software Engineer @ <span>
               <a
                 href='https://superpower.com'
-                class='inline-flex items-center gap-1 underline hover:text-orange-500'
+                class='inline-flex items-center gap-1 hover:text-orange-500 transition-colors duration-200 ease-in-out'
                 >Superpower
               </a>
             </span>, building the future of health.
@@ -28,7 +35,7 @@
 
       <!-- Experience -->
       <dl>
-        <dt class='pt-4'>
+        <dt class='dt-entry'>
           <h3 class='flex items-center gap-1 text-zinc-500'>
             Jun 2025 <span
               class='ml-1 text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs'
@@ -36,26 +43,98 @@
             >
           </h3>
         </dt>
-        <dd class='pt-0 sm:pt-4'>
+        <dd class='dd-entry'>
           <p>Founding Software Engineer</p>
           <a
             href='https://superpower.com'
-            class='inline-flex items-center gap-1 underline hover:text-orange-500'
+            class='inline-flex items-center gap-1 hover:text-orange-500'
             >Superpower
           </a>
-          <p class='text-zinc-500 text-sm!'>Remotely (San Francisco, CA HQ)</p>
+          <p class='text-tertiary text-sm'>Remotely (San Francisco, CA HQ)</p>
         </dd>
-        <dt class='border-none pt-4 sm:pt-0'>
-          <h3 class='text-zinc-500'>Feb 2022</h3>
+        <dt class='dt-entry-subsequent'>
+          <h3 class='text-tertiary'>Feb 2022</h3>
         </dt>
-        <dd class='border-none pt-0'>
+        <dd class='dd-entry-subsequent'>
           <p>Front-End Engineer</p>
           <a
             href='https://anatomize.tech'
-            class='inline-flex items-center gap-1 underline hover:text-[#2F65FD]'
+            class='inline-flex items-center gap-1 hover:text-[#2F65FD]'
             >Anatomize</a
           >
-          <p class='text-zinc-500 text-sm!'>Remotely (Miami Beach, FL HQ)</p>
+          <p class='text-tertiary text-sm'>Remotely (Miami Beach, FL HQ)</p>
+        </dd>
+      </dl>
+
+      <!-- Projects -->
+      <dl>
+        <dt class='dt-entry'>
+          <h3 class='flex items-center gap-1 text-tertiary'>Projects</h3>
+        </dt>
+        <dd class='dd-entry'>
+          <div
+            class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'
+          >
+            <Image
+              src={superpowerIcon}
+              alt='Superpower'
+              width={80}
+              height={80}
+              class='rounded-lg w-10 h-10 pointer-events-none'
+            />
+            <div>
+              <p>
+                Superpower <span
+                  class='ml-0.5 text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs'
+                  >iOS</span
+                >
+              </p>
+              <p class='text-tertiary text-sm'>
+                An ecosystem of diagnostic tools and clinician-trusted
+                solutions, personalized to individual patient needs.
+              </p>
+            </div>
+          </div>
+          <br />
+          <a
+            href='https://apps.apple.com/ie/app/amorus-couple-sexy-games-date/id1556508195'
+            class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline'
+          >
+            <Image
+              src={amorusIcon}
+              alt='Amorus'
+              width={80}
+              height={80}
+              class='rounded-lg w-10 h-10 pointer-events-none'
+            />
+            <div>
+              <p>Amorus</p>
+              <p class='text-tertiary text-sm'>
+                A private, secure gaming and messaging platform designed to
+                enhance intimacy and connection between consenting partners.
+              </p>
+            </div>
+          </a>
+          <br />
+          <a
+            href='https://apps.apple.com/ie/app/roadsider-tools/id1564257240'
+            class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline'
+          >
+            <Image
+              src={roadsiderIcon}
+              alt='Roadsider'
+              width={80}
+              height={80}
+              class='rounded-lg w-10 h-10 pointer-events-none'
+            />
+            <div>
+              <p>Roadsider</p>
+              <p class='text-tertiary text-sm'>
+                A highly automated, end-to-end roadside assistance platform
+                built for speed, scale, and operational efficiency.
+              </p>
+            </div>
+          </a>
         </dd>
       </dl>
     </section>

@@ -72,33 +72,46 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
           <h3 class='flex items-center gap-1 text-tertiary'>Projects</h3>
         </dt>
         <dd class='dd-entry'>
-          <div
-            class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'
-          >
-            <Image
-              src={superpowerIcon}
-              alt='Superpower'
-              width={80}
-              height={80}
-              class='rounded-lg w-10 h-10 pointer-events-none'
-            />
-            <div>
-              <p>
-                Superpower <span
-                  class='ml-0.5 text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs'
-                  >iOS</span
-                >
-              </p>
-              <p class='text-tertiary text-sm'>
-                An ecosystem of diagnostic tools and clinician-trusted
-                solutions, personalized to individual patient needs.
-              </p>
+          <div class='relative group'>
+            <div
+              class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm cursor-pointer'
+            >
+              <Image
+                src={superpowerIcon}
+                alt='Superpower'
+                width={80}
+                height={80}
+                class='rounded-lg w-10 h-10 pointer-events-none'
+              />
+              <div>
+                <p>
+                  Superpower <span
+                    class='ml-0.5 text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs'
+                    >iOS</span
+                  >
+                </p>
+                <p class='text-tertiary text-sm'>
+                  An ecosystem of diagnostic tools and clinician-trusted
+                  solutions, personalized to individual patient needs.
+                </p>
+              </div>
+            </div>
+            <div
+              class='pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 transition duration-300 group-hover:translate-y-0'
+            >
+              <span
+                class='text-sm text-gray-400 bg-white/10 px-4 py-2 rounded-full'
+              >
+                Coming Soon
+              </span>
             </div>
           </div>
           <br />
           <a
             href='https://apps.apple.com/ie/app/amorus-couple-sexy-games-date/id1556508195'
             class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             <Image
               src={amorusIcon}
@@ -119,6 +132,8 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
           <a
             href='https://apps.apple.com/ie/app/roadsider-tools/id1564257240'
             class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             <Image
               src={roadsiderIcon}

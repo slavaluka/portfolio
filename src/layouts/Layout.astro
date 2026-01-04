@@ -1,6 +1,5 @@
 ---
 import { Font } from 'astro:assets';
-import { ThemeToggle } from '../components/ThemeToggle';
 import '../styles/global.css';
 ---
 
@@ -12,19 +11,10 @@ import '../styles/global.css';
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
     <Font cssVariable='--font-space-grotesk' preload />
-    <title>Sláva Lukianchuk</title>
-    <!-- <script>
-      (function () {
-        const prefersDark = window.matchMedia(
-          '(prefers-color-scheme: dark)',
-        ).matches;
-        const theme = prefersDark ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-      })();
-    </script> -->
+    <Font cssVariable='--font-inter' preload />
+    <title>~ Sláva Lukianchuk</title>
   </head>
   <body>
-    <!-- <ThemeToggle client:load /> -->
     <slot />
   </body>
 </html>

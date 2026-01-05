@@ -30,7 +30,7 @@ body {
   }
 
   section {
-    @apply max-w-184 w-full mx-auto;
+    @apply max-w-180 w-full mx-auto;
   }
 
   p {

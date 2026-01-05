@@ -8,10 +8,6 @@ const clientId = import.meta.env.SPOTIFY_CLIENT_ID;
 const clientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
 const refreshToken = import.meta.env.SPOTIFY_REFRESH_TOKEN;
 
-if (!clientId || !clientSecret || !refreshToken) {
-  console.error('Missing Spotify environment variables.');
-}
-
 const NOW_PLAYING_ENDPOINT =
   'https://api.spotify.com/v1/me/player/currently-playing';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
@@ -66,17 +62,6 @@ const getNowPlaying = async (): Promise<Response> => {
 
 export const GET: APIRoute = async () => {
   try {
-    if (!clientId || !clientSecret || !refreshToken) {
-      console.error('Missing Spotify environment variables');
-      return new Response(JSON.stringify({ isPlaying: false }), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
-        },
-      });
-    }
-
     const res = await getNowPlaying();
 
     if (res.status === 204) {

@@ -101,6 +101,10 @@ body {
   .caption {
     @apply text-sm text-tertiary first:pt-1;
   }
+
+  .hoverable-container {
+    @apply flex items-start sm:items-center gap-3 sm:gap-4 cursor-pointer hover:opacity-70 transition duration-250 ease-in-out max-w-fit;
+  }
 }
 
 ::selection {

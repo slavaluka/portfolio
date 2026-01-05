@@ -80,7 +80,7 @@ const SpotifyPlaying = ({
   return (
     <a
       href={songUrl || '#'}
-      className='flex items-start sm:items-center gap-3 sm:gap-4 no-underline group hover:opacity-75 transition duration-250 ease-in-out'
+      className='group no-underline hoverable-container'
       target={songUrl ? '_blank' : undefined}
       rel={songUrl ? 'noopener noreferrer' : undefined}
     >
@@ -103,7 +103,7 @@ const SpotifyPlaying = ({
 
 const SpotifyOffline = () => {
   return (
-    <div className='flex items-start sm:items-center gap-3 sm:gap-4 group cursor-pointer hover:opacity-75 transition duration-250 ease-in-out'>
+    <div className='group hoverable-container'>
       <ImageFallback />
       <div>
         <p>Not playing</p>

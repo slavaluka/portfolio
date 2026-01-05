@@ -1,46 +1,8 @@
 import type { APIRoute } from 'astro';
-
-export interface SpotifyAccessTokenResponse {
-  access_token: string;
-}
-
-export interface SpotifyArtist {
-  name: string;
-}
-
-export interface SpotifyImage {
-  url: string;
-}
-
-export interface SpotifyExternalUrls {
-  spotify: string;
-}
-
-export interface SpotifyAlbum {
-  name: string;
-  images: SpotifyImage[];
-}
-
-export interface SpotifyItem {
-  name: string;
-  artists: SpotifyArtist[];
-  album: SpotifyAlbum;
-  external_urls: SpotifyExternalUrls;
-}
-
-export interface SpotifyNowPlaying {
-  is_playing: boolean;
-  item: SpotifyItem | null;
-}
-
-export interface NowPlayingResponse {
-  album?: string;
-  albumImageUrl?: string;
-  artist?: string;
-  isPlaying: boolean;
-  songUrl?: string;
-  title?: string;
-}
+import type {
+  SpotifyAccessTokenResponse,
+  SpotifyNowPlaying,
+} from '../../types/spotify';
 
 const clientId = import.meta.env.SPOTIFY_CLIENT_ID;
 const clientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
@@ -115,9 +77,9 @@ export const GET: APIRoute = async () => {
       });
     }
 
-    const response = await getNowPlaying();
+    const res = await getNowPlaying();
 
-    if (response.status === 204) {
+    if (res.status === 204) {
       return new Response(JSON.stringify({ isPlaying: false }), {
         status: 200,
         headers: {
@@ -127,9 +89,9 @@ export const GET: APIRoute = async () => {
       });
     }
 
-    if (response.status > 400) {
-      const errorText = await response.text();
-      console.error('Error from Spotify API:', response.status, errorText);
+    if (res.status > 400) {
+      const errorText = await res.text();
+      console.error('Error from Spotify API:', res.status, errorText);
       return new Response(JSON.stringify({ isPlaying: false }), {
         status: 200,
         headers: {
@@ -139,7 +101,7 @@ export const GET: APIRoute = async () => {
       });
     }
 
-    const song = (await response.json()) as SpotifyNowPlaying;
+    const song = (await res.json()) as SpotifyNowPlaying;
 
     if (song.item === null) {
       return new Response(JSON.stringify({ isPlaying: false }), {

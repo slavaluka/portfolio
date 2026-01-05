@@ -99,3 +99,7 @@ body {
     @apply text-sm text-tertiary;
   }
 }
+
+::selection {
+  @apply bg-primary text-white;
+}

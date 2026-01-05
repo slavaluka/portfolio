@@ -96,7 +96,7 @@ body {
   }
 
   .caption {
-    @apply text-sm text-tertiary;
+    @apply text-sm text-tertiary first:pt-1;
   }
 }
 

@@ -15,9 +15,12 @@ body {
     sans-serif
   );
 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   /* font-family: var(--font-inter, 'Inter', system-ui, sans-serif); */
 
-  @apply bg-black text-gray-300 m-0 size-full;
+  @apply bg-black text-gray-300 m-0 size-full font-medium;
 }
 
 @layer base {

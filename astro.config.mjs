@@ -17,15 +17,6 @@ export default defineConfig({
         subsets: ['latin'],
         fallbacks: ['system-ui', 'sans-serif'],
       },
-      {
-        name: 'Inter',
-        cssVariable: '--font-inter',
-        provider: fontProviders.google(),
-        weights: [400, 500, 600, 700],
-        styles: ['normal'],
-        subsets: ['latin'],
-        fallbacks: ['system-ui', 'sans-serif'],
-      },
     ],
   },
   vite: {

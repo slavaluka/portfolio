@@ -72,7 +72,7 @@ body {
 
 @layer components {
   .dt-first {
-    @apply border-none;
+    @apply border-none pb-4 md:pb-0;
   }
 
   .dt-entry {

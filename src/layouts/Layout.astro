@@ -1,6 +1,22 @@
 ---
 import { Font } from 'astro:assets';
 import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  url?: string;
+}
+
+const {
+  title = 'Sláva Lukianchuk',
+  description = 'Design Engineer building modern, reliable products from UX to infrastructure.',
+  image = '/meta.png',
+  type = 'website',
+  url = 'https://slvlkn.cc',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -10,8 +26,26 @@ import '../styles/global.css';
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/x-icon' href='/favicon.ico' />
     <meta name='generator' content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name='title' content={title} />
+    <meta name='description' content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property='og:type' content={type} />
+    <meta property='og:url' content={url} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:image' content={image} />
+
+    <!-- Twitter -->
+    <meta name='twitter:url' content={url} />
+    <meta name='twitter:title' content={title} />
+    <meta name='twitter:description' content={description} />
+    <meta name='twitter:image' content={image} />
+
     <Font cssVariable='--font-space-grotesk' preload />
-    <title>~ Sláva Lukianchuk</title>
   </head>
   <body>
     <slot />

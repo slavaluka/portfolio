@@ -7,6 +7,11 @@ import react from '@astrojs/react';
 export default defineConfig({
   output: 'server',
   adapter: vercel({}),
+
+  build: {
+    inlineStylesheets: 'always',
+  },
+
   experimental: {
     fonts: [
       {

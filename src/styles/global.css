@@ -99,7 +99,7 @@ body {
   }
 
   .caption {
-    @apply text-sm text-tertiary first:pt-1;
+    @apply text-sm text-tertiary;
   }
 
   .hoverable-container {

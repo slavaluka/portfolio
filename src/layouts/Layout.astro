@@ -9,24 +9,13 @@ import '../styles/global.css';
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='generator' content={Astro.generator} />
     <style>
-      /* Critical CSS to prevent FOUC */
-      html,
-      body {
-        background-color: #000;
-        color: #d4d4d8;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-      }
+      /* Prevent link styles from affecting all elements */
       a {
-        color: inherit;
-        text-decoration: underline;
-        text-underline-offset: 3px;
+        all: unset;
       }
     </style>
+    <meta name='generator' content={Astro.generator} />
     <Font cssVariable='--font-space-grotesk' preload />
     <title>~ Sláva Lukianchuk</title>
   </head>

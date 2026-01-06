@@ -49,6 +49,20 @@ body {
   a {
     @apply text-[15px];
     @apply underline underline-offset-3;
+
+    /* Mobile flickering fixes */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+
+    /* Prevent focus outline on touch (only show on keyboard navigation) */
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* Optimize transitions for better performance */
+    transition: opacity 0.2s ease, color 0.2s ease;
+    will-change: opacity;
   }
 
   dl {

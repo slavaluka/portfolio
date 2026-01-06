@@ -23,7 +23,7 @@ const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {
     refresh_token: refreshToken,
   });
 
-  const response = await fetch(TOKEN_ENDPOINT, {
+  const res = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
       Authorization: `Basic ${basic}`,
@@ -32,32 +32,32 @@ const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {
     body: body.toString(),
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('Failed to get access token:', response.status, errorText);
-    throw new Error(`Failed to get access token: ${response.status}`);
+  if (!res.ok) {
+    const error = await res.text();
+    console.error('Failed to get access token:', res.status, error);
+    throw new Error(`Failed to get access token: ${res.status}`);
   }
 
-  return response.json();
+  return res.json();
 };
 
 const getNowPlaying = async (): Promise<Response> => {
   const { access_token: accessToken } = await getAccessToken();
 
-  const response = await fetch(NOW_PLAYING_ENDPOINT, {
+  const res = await fetch(NOW_PLAYING_ENDPOINT, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
 
   // Clone response for error logging without consuming the original
-  if (!response.ok && response.status !== 204) {
-    const clonedResponse = response.clone();
-    const errorText = await clonedResponse.text();
-    console.error('Error fetching now playing:', response.status, errorText);
+  if (!res.ok && res.status !== 204) {
+    const clonedResponse = res.clone();
+    const error = await clonedResponse.text();
+    console.error('Error fetching now playing:', res.status, error);
   }
 
-  return response;
+  return res;
 };
 
 export const GET: APIRoute = async () => {
@@ -75,8 +75,8 @@ export const GET: APIRoute = async () => {
     }
 
     if (res.status > 400) {
-      const errorText = await res.text();
-      console.error('Error from Spotify API:', res.status, errorText);
+      const error = await res.text();
+      console.error('Error from Spotify API:', res.status, error);
       return new Response(JSON.stringify({ isPlaying: false }), {
         status: 200,
         headers: {

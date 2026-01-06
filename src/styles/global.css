@@ -14,10 +14,10 @@ body {
     system-ui,
     sans-serif
   );
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-  /* font-family: var(--font-inter, 'Inter', system-ui, sans-serif); */
-
-  @apply bg-black text-gray-300 m-0 size-full;
+  @apply bg-black text-gray-300 m-0 size-full font-medium;
 }
 
 @layer base {
@@ -27,7 +27,7 @@ body {
   }
 
   section {
-    @apply max-w-184 w-full mx-auto;
+    @apply max-w-180 w-full mx-auto;
   }
 
   p {
@@ -52,7 +52,7 @@ body {
   }
 
   dl {
-    @apply mb-12 grid grid-cols-12 gap-y-2 sm:mb-16;
+    @apply mb-12 grid grid-cols-12 gap-8 gap-y-2 sm:mb-16 sm:gap-y-4;
   }
 
   dt {
@@ -96,7 +96,11 @@ body {
   }
 
   .caption {
-    @apply text-sm text-tertiary first:pt-1;
+    @apply text-sm text-tertiary;
+  }
+
+  .hoverable-container {
+    @apply flex items-start sm:items-center gap-3 sm:gap-4 cursor-pointer hover:opacity-70 transition duration-250 ease-in-out max-w-fit;
   }
 }
 

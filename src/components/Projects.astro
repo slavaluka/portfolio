@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import Badge from '../ui/Badge.astro';
-import superpowerIcon from '../assets/superpower-ios-icon.webp';
-import amorusIcon from '../assets/amorus-ios-icon.webp';
-import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
+import Badge from './ui/Badge.astro';
+import superpowerIcon from '../assets/projects/superpower-ios-icon.webp';
+import amorusIcon from '../assets/projects/amorus-ios-icon.webp';
+import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
 ---
 
-<section>
+<section id='projects-container'>
   <dl>
     <dt class='dt-entry'>
       <h3 class='text-tertiary'>Projects</h3>
@@ -14,7 +14,7 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
     <dd class='dd-entry'>
       <div class='relative group'>
         <div
-          class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm cursor-pointer'
+          class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm translate-z-0 cursor-pointer'
         >
           <Image
             src={superpowerIcon}
@@ -46,7 +46,7 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
       <br />
       <a
         href='https://apps.apple.com/ie/app/amorus-couple-sexy-games-date/id1556508195'
-        class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline group hover:opacity-80 transition duration-250 ease-in-out'
+        class='hoverable-container group no-underline'
         target='_blank'
         rel='noopener noreferrer'
       >
@@ -68,7 +68,7 @@ import roadsiderIcon from '../assets/roadsider-ios-icon.webp';
       <br />
       <a
         href='https://apps.apple.com/ie/app/roadsider-tools/id1564257240'
-        class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline group hover:opacity-80 transition duration-250 ease-in-out'
+        class='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 no-underline group hover:opacity-75 transition duration-250 ease-in-out'
         target='_blank'
         rel='noopener noreferrer'
       >

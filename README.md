@@ -1,46 +1,78 @@
-# Astro Starter Kit: Basics
+# Personal Website
 
-```sh
-bun create astro@latest -- --template basics
+> **Live Demo:** [slvlkn.cc](https://slvlkn.cc)
+
+## About
+
+Think of this repo as my little studio. I'm a design engineer who likes coding with style, so I use this site to mix "art" and logic, try weird ideas, and keep things feeling alive. I like the sweet spot where things look good and still feel fast.
+
+## What's inside
+
+- **Framework:** [Astro](https://astro.build) with React bits
+- **Styling:** Tailwind CSS v4
+- **Data Fetching:** SWR for the Spotify widget
+- **Hosting:** Vercel
+- **Package Manager:** Bun
+
+> While React is my go-to, Astro’s rapid experimentation with new ideas and features made it impossible not to try — and it delivered.
+
+## Some highlights
+
+**Some highlights:**
+
+- Live Spotify integration showing the current track
+- Soft hover transitions and blur effects
+- Responsive layouts, mobile-first
+- Open Graph meta tags for sharing
+- WebP images for faster loads
+- Server-side rendering for performance
+
+## Run it locally
+
+If you want to poke around:
+
+```bash
+# Clone the repository
+git clone https://github.com/slavaluka/portfolio.git
+
+# Install dependencies
+bun install
+
+# Start the dev server
+bun dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The site shows up at `http://localhost:4321`
 
-## 🚀 Project Structure
+## Build
 
-Inside of your Astro project, you'll see the following folders and files:
+```bash
+# Build for production
+bun build
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+# Preview production build locally
+bun preview
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Project structure
 
-## 🧞 Commands
+```
+├── public/              # Static assets (favicon, og-image, etc.)
+├── src/
+│   ├── assets/         # Images and project icons
+│   ├── components/     # Astro & React components
+│   │   └── ui/         # Reusable UI primitives
+│   ├── layouts/        # Page layouts
+│   ├── pages/          # Routes and API endpoints
+│   ├── styles/         # Global CSS with Tailwind
+│   └── types/          # TypeScript definitions
+└── astro.config.mjs    # Astro configuration
+```
 
-All commands are run from the root of the project, from a terminal:
+## License
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+This project is open source and available under the [MIT License](LICENSE).
 
-## 👀 Want to learn more?
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Built with 🤍 by [Sláva Lukianchuk](https://slvlkn.cc)

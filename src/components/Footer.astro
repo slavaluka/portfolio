@@ -4,10 +4,12 @@ import GitHubIcon from '@/components/icons/GitHub.astro';
 
 const socialLinks = [
   {
+    name: 'X',
     href: 'https://x.com/slavalukianchuk',
     icon: TwitterIcon,
   },
   {
+    name: 'GitHub',
     href: 'https://github.com/slavaluka',
     icon: GitHubIcon,
   },
@@ -26,16 +28,15 @@ const socialLinks = [
                 href={link.href}
                 target='_blank'
                 rel='noopener noreferrer'
+                aria-label={`${link.name} profile`}
               >
                 <link.icon />
               </a>
             ))
           }
         </div>
-        <div class='flex h-full flex-col items-end justify-end sm:justify-between'>
-          <div class='flex-1 select-none text-xs text-neutral-700 block' aria-hidden='true' role='img'>
-            52°13&prime;47&Prime; N 21°00&prime;44&Prime; E
-          </div>
+        <div class='select-none text-xs text-zinc-400 block ml-auto' aria-hidden='true' role='img'>
+          52°13&prime;47&Prime; N 21°00&prime;44&Prime; E
         </div>
       </div>
     </div>

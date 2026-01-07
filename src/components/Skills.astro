@@ -1,31 +1,40 @@
+---
+const skills = [
+  {
+    category: 'Core Engineering',
+    technologies: 'TypeScript (JavaScript), React, React Native, Expo, Next.js',
+  },
+  {
+    category: 'Backend & Data',
+    technologies: 'Node.js, Go, SQL, FHIR-based schemas',
+  },
+  {
+    category: 'Infrastructure & Delivery',
+    technologies: 'Docker, Kubernetes, CI/CD, GitHub Actions, Bun',
+  },
+  {
+    category: 'Quality & Tooling',
+    technologies: 'Jest, ESLint, Prettier, Storybook, Postman',
+  },
+  {
+    category: 'Design & Product Ops',
+    technologies: 'Tailwind CSS, NativeWind, Motion, Webflow, Figma, Linear',
+  },
+];
+---
+
 <section id='skills-container'>
   <dl>
     <dt class='dt-entry'><h3 class='text-zinc-400'>Skills</h3></dt>
     <dd class='dd-entry flex flex-col gap-3 *:space-y-0.5'>
-      <div>
-        <p>Core Engineering</p>
-        <p class='caption'>TypeScript (JavaScript), React, React Native, Expo, Next.js</p>
-      </div>
-
-      <div>
-        <p>Backend & Data</p>
-        <p class='caption'>Node.js, Go, SQL, FHIR-based schemas</p>
-      </div>
-
-      <div>
-        <p>Infrastructure & Delivery</p>
-        <p class='caption'>Docker, Kubernetes, CI/CD, GitHub Actions, Bun</p>
-      </div>
-
-      <div>
-        <p>Quality & Tooling</p>
-        <p class='caption'>Jest, ESLint, Prettier, Storybook, Postman</p>
-      </div>
-
-      <div>
-        <p>Design & Product Ops</p>
-        <p class='caption'>Tailwind CSS, NativeWind, Motion, Webflow, Figma, Linear</p>
-      </div>
+      {
+        skills.map((skill) => (
+          <div>
+            <p>{skill.category}</p>
+            <p class='caption'>{skill.technologies}</p>
+          </div>
+        ))
+      }
     </dd>
   </dl>
 </section>

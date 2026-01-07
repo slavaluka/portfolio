@@ -17,19 +17,19 @@ jobs:
     name: Lint & Prettier
     runs-on: ubuntu-latest
     steps:
-      - name: ⬇️ Checkout Repo
+      - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: 🥯 Setup Bun
+      - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: bun install --frozen-lockfile
 
-      - name: 🚨 Run ESLint
+      - name: Run ESLint
         run: bun lint
 
-      - name: 💅 Run Prettier
+      - name: Run Prettier
         run: bun format:check

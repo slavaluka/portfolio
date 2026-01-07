@@ -1,5 +1,7 @@
 # Personal Website
 
+![Website Preview](public/website-preview.webp)
+
 > **Live Demo:** [slvlkn.cc](https://slvlkn.cc)
 
 ## About
@@ -15,17 +17,6 @@ Think of this repo as my little studio. I'm a design engineer who likes coding w
 - **Package Manager:** Bun
 
 > While React is my go-to, Astro’s rapid experimentation with new ideas and features made it impossible not to try — and it delivered.
-
-## Some highlights
-
-**Some highlights:**
-
-- Live Spotify integration showing the current track
-- Soft hover transitions and blur effects
-- Responsive layouts, mobile-first
-- Open Graph meta tags for sharing
-- WebP images for faster loads
-- Server-side rendering for performance
 
 ## Run it locally
 

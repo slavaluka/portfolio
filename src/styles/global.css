@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: #3a31fd;
-  --color-secondary: #dddddf;
-  --color-tertiary: oklch(55.2% 0.016 285.938);
+  --color-highlight: #3a31fd;
 }
 
 html,
@@ -12,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @apply bg-black text-gray-300 m-0 size-full font-medium;
+  @apply bg-black m-0 size-full font-medium text-zinc-100;
 }
 
 @layer base {
@@ -47,15 +45,15 @@ body {
   }
 
   dl {
-    @apply mb-10 grid grid-cols-12 gap-8 gap-y-2 sm:mb-16 sm:gap-y-4;
+    @apply mb-10 grid grid-cols-12 sm:gap-8 gap-y-2 sm:mb-16 sm:gap-y-4;
   }
 
   dt {
-    @apply col-span-12 border-t border-solid border-neutral-500/10 dark:border-neutral-900 sm:col-span-4;
+    @apply col-span-12 border-t border-solid border-neutral-900 sm:col-span-4;
   }
 
   dd {
-    @apply col-span-12 border-solid border-neutral-500/10 dark:border-neutral-900 sm:col-span-8 sm:border-t;
+    @apply col-span-12 border-solid border-neutral-900 sm:col-span-8 sm:border-t;
   }
 }
 
@@ -85,14 +83,14 @@ body {
   }
 
   .caption {
-    @apply text-sm text-tertiary;
+    @apply text-sm text-zinc-400;
   }
 
   .hoverable-container {
-    @apply flex items-start sm:items-center gap-3 sm:gap-4 cursor-pointer hover:opacity-70 transition duration-250 ease-in-out max-w-fit;
+    @apply flex items-start sm:items-center gap-3 sm:gap-4 cursor-pointer hover:opacity-70 transition duration-250 ease-in-out;
   }
 }
 
 ::selection {
-  @apply bg-primary text-white;
+  @apply bg-highlight text-white;
 }

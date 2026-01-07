@@ -38,7 +38,7 @@ export const Spotify = () => {
     <section id='spotify-container'>
       <dl>
         <dt className='dt-entry'>
-          <h3 className='flex items-center gap-1 text-tertiary'>
+          <h3 className='flex items-center gap-1 text-zinc-400'>
             Spotify
             {isPlaying && <Live />}
           </h3>

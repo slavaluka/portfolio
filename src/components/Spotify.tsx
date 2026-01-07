@@ -1,15 +1,12 @@
 import useSWR from 'swr';
-import type { NowPlayingResponse } from '../types/spotify';
 
-const fetcher = async (
-  ...args: Parameters<typeof fetch>
-): Promise<NowPlayingResponse> => {
+import type { NowPlayingResponse } from '@/types/spotify';
+
+const fetcher = async (...args: Parameters<typeof fetch>): Promise<NowPlayingResponse> => {
   const res = await fetch(...args);
 
   if (!res.ok) {
-    throw new Error(
-      `Failed to fetch current Spotify track. Status: ${res.status}`,
-    );
+    throw new Error(`Failed to fetch current Spotify track. Status: ${res.status}`);
   }
 
   return res.json();
@@ -23,9 +20,7 @@ export const Spotify = () => {
     },
   });
 
-  const spotifyData = error
-    ? { isPlaying: false }
-    : data || { isPlaying: false };
+  const spotifyData = error ? { isPlaying: false } : data || { isPlaying: false };
 
   const isPlaying = spotifyData?.isPlaying;
   const { title, artist, album, albumImageUrl, songUrl } = spotifyData || {};
@@ -36,15 +31,7 @@ export const Spotify = () => {
       return <SpotifyOffline />;
     }
 
-    return (
-      <SpotifyPlaying
-        title={title}
-        subtitle={subtitle}
-        albumAlt={album}
-        albumImageUrl={albumImageUrl}
-        songUrl={songUrl}
-      />
-    );
+    return <SpotifyPlaying title={title} subtitle={subtitle} albumAlt={album} albumImageUrl={albumImageUrl} songUrl={songUrl} />;
   };
 
   return (
@@ -107,7 +94,7 @@ const SpotifyOffline = () => {
       <ImageFallback />
       <div>
         <p>Not playing</p>
-        <p className='caption'>Currently I'm offline</p>
+        <p className='caption'>Currently I&prime;m offline</p>
       </div>
     </div>
   );

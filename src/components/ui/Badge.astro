@@ -6,12 +6,6 @@ type Props = HTMLAttributes<'span'>;
 const { class: className, ...props } = Astro.props;
 ---
 
-<span
-  class:list={[
-    'text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs',
-    className,
-  ]}
-  {...props}
->
+<span class:list={['text-gray-400 bg-white/10 rounded-full px-2 py-0.5 text-xs', className]} {...props}>
   <slot />
 </span>

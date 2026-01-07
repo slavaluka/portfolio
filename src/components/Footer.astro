@@ -1,6 +1,6 @@
 ---
-import TwitterIcon from './icons/Twitter.astro';
-import GitHubIcon from './icons/GitHub.astro';
+import TwitterIcon from '@/components/icons/Twitter.astro';
+import GitHubIcon from '@/components/icons/GitHub.astro';
 
 const socialLinks = [
   {
@@ -17,9 +17,7 @@ const socialLinks = [
 <section id='footer-container'>
   <footer class='m:px-0 flex w-full justify-center'>
     <div class='max-w-main flex-1'>
-      <div
-        class='flex h-full w-full items-end justify-between border-t border-solid border-neutral-500/10 pt-8 dark:border-neutral-900'
-      >
+      <div class='flex h-full w-full items-end justify-between border-t border-solid border-neutral-500/10 pt-8 dark:border-neutral-900'>
         <div class='flex gap-3'>
           {
             socialLinks.map((link) => (
@@ -34,14 +32,8 @@ const socialLinks = [
             ))
           }
         </div>
-        <div
-          class='flex h-full flex-col items-end justify-end sm:justify-between'
-        >
-          <div
-            class='flex-1 select-none text-xs text-neutral-900/30 dark:text-neutral-700 block'
-            aria-hidden='true'
-            role='img'
-          >
+        <div class='flex h-full flex-col items-end justify-end sm:justify-between'>
+          <div class='flex-1 select-none text-xs text-neutral-900/30 dark:text-neutral-700 block' aria-hidden='true' role='img'>
             52°13&prime;47&Prime; N 21°00&prime;44&Prime; E
           </div>
         </div>

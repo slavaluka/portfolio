@@ -8,12 +8,7 @@
 
 html,
 body {
-  font-family: var(
-    --font-space-grotesk,
-    'Space Grotesk',
-    system-ui,
-    sans-serif
-  );
+  font-family: var(--font-space-grotesk, 'Space Grotesk', system-ui, sans-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

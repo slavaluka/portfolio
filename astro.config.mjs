@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
@@ -28,6 +29,11 @@ export default defineConfig({
   },
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
   },
 
   integrations: [react()],

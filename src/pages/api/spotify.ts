@@ -1,8 +1,6 @@
 import type { APIRoute } from 'astro';
-import type {
-  SpotifyAccessTokenResponse,
-  SpotifyNowPlaying,
-} from '../../types/spotify';
+
+import type { SpotifyAccessTokenResponse, SpotifyNowPlaying } from '@/types/spotify';
 
 export const prerender = false;
 
@@ -10,8 +8,7 @@ const clientId = import.meta.env.SPOTIFY_CLIENT_ID;
 const clientSecret = import.meta.env.SPOTIFY_CLIENT_SECRET;
 const refreshToken = import.meta.env.SPOTIFY_REFRESH_TOKEN;
 
-const NOW_PLAYING_ENDPOINT =
-  'https://api.spotify.com/v1/me/player/currently-playing';
+const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 
 const getAccessToken = async (): Promise<SpotifyAccessTokenResponse> => {

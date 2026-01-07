@@ -13,6 +13,7 @@ Think of this repo as my little studio. I'm a design engineer who likes coding w
 - **Framework:** [Astro](https://astro.build) with React bits
 - **Styling:** Tailwind CSS v4
 - **Data Fetching:** SWR for the Spotify widget
+- **Linting & Formatting:** ESLint + Prettier
 - **Hosting:** Vercel
 - **Package Manager:** Bun
 

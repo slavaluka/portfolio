@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import Badge from './ui/Badge.astro';
-import superpowerIcon from '../assets/projects/superpower-ios-icon.webp';
-import amorusIcon from '../assets/projects/amorus-ios-icon.webp';
-import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
+import Badge from '@/components/ui/Badge.astro';
+import superpowerIcon from '@/assets/projects/superpower-ios-icon.webp';
+import amorusIcon from '@/assets/projects/amorus-ios-icon.webp';
+import roadsiderIcon from '@/assets/projects/roadsider-ios-icon.webp';
 ---
 
 <section id='projects-container'>
@@ -13,9 +13,7 @@ import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
     </dt>
     <dd class='dd-entry'>
       <div class='relative group'>
-        <div
-          class='flex items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm translate-z-0 cursor-pointer'
-        >
+        <div class='flex items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm translate-z-0 cursor-pointer'>
           <Image
             src={superpowerIcon}
             alt='Superpower'
@@ -31,19 +29,14 @@ import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
               Superpower <Badge class='ml-0.5'>iOS</Badge>
             </p>
             <p class='caption'>
-              An ecosystem of diagnostic tools and clinician-trusted solutions,
-              personalized to individual patient needs.
+              An ecosystem of diagnostic tools and clinician-trusted solutions, personalized to individual patient needs.
             </p>
           </div>
         </div>
         <div
           class='hidden pointer-events-none absolute inset-0 md:flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 transition duration-250 group-hover:translate-y-0'
         >
-          <span
-            class='text-sm text-gray-400 bg-white/10 px-4 py-2 rounded-full'
-          >
-            Coming Soon
-          </span>
+          <span class='text-sm text-gray-400 bg-white/10 px-4 py-2 rounded-full'> Coming Soon </span>
         </div>
       </div>
       <br />
@@ -66,8 +59,7 @@ import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
         <div class='space-y-0.5'>
           <p>Amorus</p>
           <p class='caption'>
-            A private, secure gaming and messaging platform designed to enhance
-            intimacy and connection between consenting partners.
+            A private, secure gaming and messaging platform designed to enhance intimacy and connection between consenting partners.
           </p>
         </div>
       </a>
@@ -91,8 +83,7 @@ import roadsiderIcon from '../assets/projects/roadsider-ios-icon.webp';
         <div class='space-y-0.5'>
           <p>Roadsider</p>
           <p class='caption'>
-            A highly automated, end-to-end roadside assistance platform built
-            for speed, scale, and operational efficiency.
+            A highly automated, end-to-end roadside assistance platform built for speed, scale, and operational efficiency.
           </p>
         </div>
       </a>

@@ -1,9 +1,8 @@
 ---
-import { Image } from 'astro:assets';
-import Badge from '@/components/ui/Badge.astro';
-import superpowerIcon from '@/assets/projects/superpower-ios-icon.webp';
 import amorusIcon from '@/assets/projects/amorus-ios-icon.webp';
 import roadsiderIcon from '@/assets/projects/roadsider-ios-icon.webp';
+import superpowerIcon from '@/assets/projects/superpower-ios-icon.webp';
+import { Image } from 'astro:assets';
 ---
 
 <section id='projects-container'>
@@ -12,33 +11,28 @@ import roadsiderIcon from '@/assets/projects/roadsider-ios-icon.webp';
       <h3 class='text-zinc-400'>Projects</h3>
     </dt>
     <dd class='dd-entry'>
-      <div class='relative group'>
-        <div class='flex items-center gap-3 sm:gap-4 transition duration-320 group-hover:blur-sm translate-z-0 cursor-pointer'>
-          <Image
-            src={superpowerIcon}
-            alt='Superpower'
-            width={40}
-            height={40}
-            densities={[1.5, 2]}
-            class='rounded-lg w-10 h-10 pointer-events-none'
-            format='webp'
-            loading='eager'
-          />
-          <div class='space-y-0.5'>
-            <p>
-              Superpower <Badge class='ml-0.5'>iOS</Badge>
-            </p>
-            <p class='caption'>
-              An ecosystem of diagnostic tools and clinician-trusted solutions, personalized to individual patient needs.
-            </p>
-          </div>
+      <a
+        href='https://apps.apple.com/us/app/superpower/id6747997159'
+        class='flex items-center gap-3 sm:gap-4 no-underline group hover:opacity-75 transition duration-250 ease-in-out'
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label='Superpower website'
+      >
+        <Image
+          src={superpowerIcon}
+          alt='Superpower'
+          width={40}
+          height={40}
+          densities={[1.5, 2]}
+          class='rounded-lg w-10 h-10 pointer-events-none group-hover:-rotate-12 transition duration-250 ease-in-out'
+          format='webp'
+          loading='eager'
+        />
+        <div class='space-y-0.5'>
+          <p>Superpower</p>
+          <p class='caption'>An ecosystem of diagnostic tools and clinician-trusted solutions, personalized to individual patient needs.</p>
         </div>
-        <div
-          class='hidden pointer-events-none absolute inset-0 md:flex items-center justify-center opacity-0 translate-y-4 group-hover:opacity-100 transition duration-250 group-hover:translate-y-0'
-        >
-          <span class='text-sm text-zinc-400 bg-white/10 px-4 py-2 rounded-full'> Coming Soon </span>
-        </div>
-      </div>
+      </a>
       <br />
       <a
         href='https://apps.apple.com/ie/app/amorus-couple-sexy-games-date/id1556508195'

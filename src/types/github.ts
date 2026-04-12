@@ -19,7 +19,7 @@ export interface GitHubContributionCalendar {
 }
 
 export interface GitHubGraphQLResponse {
-  data: {
+  data?: {
     user: {
       contributionsCollection: {
         contributionCalendar: GitHubContributionCalendar;

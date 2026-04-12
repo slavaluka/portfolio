@@ -16,8 +16,8 @@ const LEVEL_MAP: Record<string, 0 | 1 | 2 | 3 | 4> = {
 };
 
 const query = `
-  query {
-    user(login: "${GITHUB_USERNAME}") {
+  query ($userName: String!) {
+    user(login: $userName) {
       contributionsCollection {
         contributionCalendar {
           totalContributions
@@ -57,7 +57,7 @@ export const GET: APIRoute = async () => {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: { userName: GITHUB_USERNAME } }),
     });
 
     if (!res.ok) {
@@ -70,6 +70,15 @@ export const GET: APIRoute = async () => {
     }
 
     const json = (await res.json()) as GitHubGraphQLResponse;
+
+    if (!json.data) {
+      console.error('GitHub GraphQL error:', JSON.stringify(json));
+      return new Response(JSON.stringify({ totalContributions: 0, weeks: [] }), {
+        status: 200,
+        headers: cacheHeaders,
+      });
+    }
+
     const calendar = json.data.user.contributionsCollection.contributionCalendar;
 
     const response: GitHubActivityResponse = {

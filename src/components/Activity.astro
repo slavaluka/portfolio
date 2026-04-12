@@ -1,12 +1,150 @@
 ---
-import GitHubActivity from '@/components/GitHubActivity.tsx';
+const token = import.meta.env.GITHUB_TOKEN;
+const username = import.meta.env.GITHUB_USERNAME;
+
+interface GraphQLResponse {
+  data?: {
+    user: {
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number;
+          weeks: {
+            contributionDays: {
+              date: string;
+              contributionCount: number;
+              contributionLevel: string;
+            }[];
+          }[];
+        };
+      };
+    };
+  };
+}
+
+const LEVEL_MAP: Record<string, number> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
+};
+
+const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const BAR_COLOR = '#26a641';
+const BAR_HEIGHT = 80;
+
+interface WeekSummary {
+  count: number;
+  startDate: string;
+  endDate: string;
+}
+
+let totalContributions = 0;
+let weeks: WeekSummary[] = [];
+
+if (token && username) {
+  try {
+    const res = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `query ($userName: String!) {
+          user(login: $userName) {
+            contributionsCollection {
+              contributionCalendar {
+                totalContributions
+                weeks {
+                  contributionDays {
+                    date
+                    contributionCount
+                    contributionLevel
+                  }
+                }
+              }
+            }
+          }
+        }`,
+        variables: { userName: username },
+      }),
+    });
+
+    if (res.ok) {
+      const json = (await res.json()) as GraphQLResponse;
+      if (json.data) {
+        const calendar = json.data.user.contributionsCollection.contributionCalendar;
+        totalContributions = calendar.totalContributions;
+        weeks = calendar.weeks.map((week) => ({
+          count: week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0),
+          startDate: week.contributionDays[0]?.date ?? '',
+          endDate: week.contributionDays[week.contributionDays.length - 1]?.date ?? '',
+        }));
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching GitHub data:', error);
+  }
+}
+
+const maxCount = Math.max(...weeks.map((w) => w.count), 1);
+
+const monthLabels = new Map<number, string>();
+let lastMonth = -1;
+for (let i = 0; i < weeks.length; i++) {
+  if (!weeks[i].startDate) continue;
+  const month = new Date(weeks[i].startDate + 'T00:00:00').getMonth();
+  if (month !== lastMonth) {
+    monthLabels.set(i, MONTH_LABELS[month]);
+    lastMonth = month;
+  }
+}
+
+const hasData = weeks.length > 0;
 ---
 
-<section id='activity-container'>
-  <dl>
-    <dt class='dt-entry'><h3 class='text-zinc-400'>Activity</h3></dt>
-    <dd class='dd-entry'>
-      <GitHubActivity client:visible />
-    </dd>
-  </dl>
-</section>
+{hasData && (
+  <section id='activity-container'>
+    <dl>
+      <dt class='dt-entry'><h3 class='text-zinc-400'>Activity</h3></dt>
+      <dd class='dd-entry'>
+        <div class='flex flex-col gap-2'>
+          <p>{totalContributions.toLocaleString()} contributions in the last year</p>
+          <div class='activity-chart relative w-full mt-4'>
+            <div class='flex items-end gap-0.5' style={`height: ${BAR_HEIGHT}px`}>
+              {weeks.map((week) => {
+                const height = Math.max((week.count / maxCount) * BAR_HEIGHT, week.count > 0 ? 3 : 0);
+                const opacity = week.count === 0 ? 0.15 : 0.4 + 0.6 * (week.count / maxCount);
+
+                return (
+                  <div class='relative' style={`flex: 1 1 0; min-width: 0; height: 100%`}>
+                    <div
+                      class='peer absolute bottom-0 left-0 right-0 rounded-t-sm transition-all duration-200 ease-in-out hover:brightness-150'
+                      style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${opacity}`}
+                    />
+                    {week.count > 0 && (
+                      <span
+                        class='absolute left-1/2 -translate-x-1/2 text-[8px] text-white opacity-0 transition-opacity duration-150 ease-in-out pointer-events-none peer-hover:opacity-100'
+                        style={`bottom: ${height + 8}px`}
+                      >
+                        {week.count}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <div class='relative h-5 mt-1'>
+              {Array.from(monthLabels.entries()).map(([weekIndex, label]) => (
+                <span class='absolute text-xs text-zinc-500' style={`left: ${(weekIndex / weeks.length) * 100}%`}>
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </dd>
+    </dl>
+  </section>
+)}

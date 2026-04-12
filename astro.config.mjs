@@ -14,19 +14,21 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
 
-  experimental: {
-    fonts: [
-      {
-        name: 'Space Grotesk',
-        cssVariable: '--font-space-grotesk',
-        provider: fontProviders.google(),
-        weights: [400, 500, 600, 700],
-        styles: ['normal', 'italic'],
-        subsets: ['latin'],
-        fallbacks: ['system-ui', 'sans-serif'],
-      },
-    ],
+  fonts: [
+    {
+      name: 'Space Grotesk',
+      cssVariable: '--font-space-grotesk',
+      provider: fontProviders.google(),
+      weights: [400, 500, 600, 700],
+      styles: ['normal', 'italic'],
+      subsets: ['latin'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+  ],
+  server: {
+    port: 4308,
   },
+
   vite: {
     plugins: [tailwindcss()],
     resolve: {

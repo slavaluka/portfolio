@@ -79,7 +79,7 @@ export const GET: APIRoute = async () => {
       });
     }
 
-    const calendar = json.data.user.contributionsCollection.contributionCalendar;
+    const calendar = json.data!.user.contributionsCollection.contributionCalendar;
 
     const response: GitHubActivityResponse = {
       totalContributions: calendar.totalContributions,

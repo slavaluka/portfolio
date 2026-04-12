@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import useSWR from 'swr';
 
 import type { GitHubActivityResponse } from '@/types/github';
@@ -77,8 +77,8 @@ const HeatmapGrid = ({ weeks }: { weeks: GitHubActivityResponse['weeks'] }) => {
 
         {/* Day rows (0=Sun, 1=Mon, ..., 6=Sat) */}
         {Array.from({ length: 7 }, (_, dayIndex) => (
-          <>
-            <div key={`label-${dayIndex}`} className="text-xs text-zinc-500 pr-2 h-[13px] leading-[13px] flex items-center">
+          <Fragment key={`row-${dayIndex}`}>
+            <div className="text-xs text-zinc-500 pr-2 h-[13px] leading-[13px] flex items-center">
               {DAY_LABELS.find((d) => d.index === dayIndex)?.label ?? ''}
             </div>
             {weeks.map((week, weekIndex) => {
@@ -101,7 +101,7 @@ const HeatmapGrid = ({ weeks }: { weeks: GitHubActivityResponse['weeks'] }) => {
                 />
               );
             })}
-          </>
+          </Fragment>
         ))}
       </div>
 

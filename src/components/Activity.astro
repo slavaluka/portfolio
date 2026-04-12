@@ -131,8 +131,11 @@ const hasData = weeks.length > 0;
                 })}
               </div>
               <div class='relative h-5 mt-1'>
-                {Array.from(monthLabels.entries()).map(([weekIndex, label]) => (
-                  <span class='absolute text-xs text-zinc-500' style={`left: ${(weekIndex / weeks.length) * 100}%`}>
+                {Array.from(monthLabels.entries()).map(([weekIndex, label], i) => (
+                  <span
+                    class:list={['absolute text-xs text-zinc-500', { 'hidden sm:block': i % 2 !== 0 }]}
+                    style={`left: ${(weekIndex / weeks.length) * 100}%`}
+                  >
                     {label}
                   </span>
                 ))}

@@ -6,7 +6,5 @@ compatibility_flags = ["nodejs_compat"]
 workers_dev = true
 preview_urls = false
 
-# Runtime bindings. GITHUB_USERNAME is public (rendered on the page); GITHUB_TOKEN is a
-# runtime Secret set in the Worker dashboard (Settings -> Variables and Secrets).
-[vars]
-GITHUB_USERNAME = "slavaluka"
+# GITHUB_TOKEN and GITHUB_USERNAME are runtime secrets set in the Worker dashboard
+# (Settings -> Variables and Secrets), kept out of the repo.

@@ -6,9 +6,12 @@ compatibility_flags = ["nodejs_compat"]
 workers_dev = false
 preview_urls = false
 
-# GITHUB_TOKEN and GITHUB_USERNAME are runtime secrets set in the Worker dashboard
-# (Settings -> Variables and Secrets), kept out of the repo.
-
 # Capture console logs in the dashboard (Observability -> Logs).
 [observability]
 enabled = true
+
+# GITHUB_USERNAME is public (it's rendered on the page), so it lives here and is applied on
+# every deploy. GITHUB_TOKEN stays a Secret in the Worker dashboard — secrets survive
+# deploys, but a plaintext var set only in the dashboard gets wiped by `wrangler deploy`.
+[vars]
+GITHUB_USERNAME = "slavaluka"

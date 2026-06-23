@@ -2,9 +2,13 @@ name = "portfolio"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Keep the workers.dev URL active; set false once slvlkn.cc is attached as a custom domain.
-workers_dev = true
+# slvlkn.cc is attached as a custom domain, so the workers.dev URL is disabled.
+workers_dev = false
 preview_urls = false
 
 # GITHUB_TOKEN and GITHUB_USERNAME are runtime secrets set in the Worker dashboard
 # (Settings -> Variables and Secrets), kept out of the repo.
+
+# Capture console logs in the dashboard (Observability -> Logs).
+[observability]
+enabled = true

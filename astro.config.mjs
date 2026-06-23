@@ -1,14 +1,13 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import { fileURLToPath } from 'node:url';
-import vercel from '@astrojs/vercel';
+import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://slvlkn.cc',
   output: 'server',
-  adapter: vercel({}),
+  adapter: cloudflare(),
 
   build: {
     inlineStylesheets: 'always',
@@ -37,6 +36,4 @@ export default defineConfig({
       },
     },
   },
-
-  integrations: [react()],
 });

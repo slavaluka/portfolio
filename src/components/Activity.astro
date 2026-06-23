@@ -1,6 +1,9 @@
 ---
-const token = import.meta.env.GITHUB_TOKEN;
-const username = import.meta.env.GITHUB_USERNAME;
+import { env } from 'cloudflare:workers';
+
+// On Cloudflare, secrets come from the worker runtime; fall back to `import.meta.env` for local `astro dev`.
+const token = env.GITHUB_TOKEN ?? import.meta.env.GITHUB_TOKEN;
+const username = env.GITHUB_USERNAME ?? import.meta.env.GITHUB_USERNAME;
 
 interface GraphQLResponse {
   data?: {

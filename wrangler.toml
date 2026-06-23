@@ -2,6 +2,6 @@ name = "portfolio"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Served from the custom domain (slvlkn.cc); no workers.dev subdomain or preview URLs.
-workers_dev = false
+# Keep the workers.dev URL active; set false once slvlkn.cc is attached as a custom domain.
+workers_dev = true
 preview_urls = false

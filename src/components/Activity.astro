@@ -24,18 +24,30 @@ interface GraphQLResponse {
   };
 }
 
-const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const BAR_COLOR = '#26a641';
-const BAR_HEIGHT = 80;
-
-interface WeekSummary {
+interface Day {
+  date: string;
   count: number;
-  startDate: string;
-  endDate: string;
+  level: string;
 }
 
+const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', '']; // Sun -> Sat
+
+// GitHub's dark-theme contribution palette, keyed by contributionLevel.
+const LEVEL_COLORS: Record<string, string> = {
+  NONE: '#161b22',
+  FIRST_QUARTILE: '#0e4429',
+  SECOND_QUARTILE: '#006d32',
+  THIRD_QUARTILE: '#26a641',
+  FOURTH_QUARTILE: '#39d353',
+};
+
+const CELL = 11; // px square
+const GAP = 3; // px between cells
+const DAY_LABEL_W = 26; // px width reserved for the Mon/Wed/Fri column
+
 let totalContributions = 0;
-let weeks: WeekSummary[] = [];
+let weeks: (Day | null)[][] = [];
 
 if (!token || !username) {
   console.error('GitHub activity: missing GITHUB_TOKEN or GITHUB_USERNAME at runtime.');
@@ -79,11 +91,15 @@ if (token && username) {
       if (json.data?.user) {
         const calendar = json.data.user.contributionsCollection.contributionCalendar;
         totalContributions = calendar.totalContributions;
-        weeks = calendar.weeks.map((week) => ({
-          count: week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0),
-          startDate: week.contributionDays[0]?.date ?? '',
-          endDate: week.contributionDays[week.contributionDays.length - 1]?.date ?? '',
-        }));
+        // Pad each week to 7 weekday slots (Sun..Sat) so partial first/last weeks align.
+        weeks = calendar.weeks.map((week) => {
+          const slots: (Day | null)[] = Array(7).fill(null);
+          for (const day of week.contributionDays) {
+            const weekday = new Date(day.date + 'T00:00:00').getDay();
+            slots[weekday] = { date: day.date, count: day.contributionCount, level: day.contributionLevel };
+          }
+          return slots;
+        });
       } else {
         console.error('GitHub activity: unexpected response', JSON.stringify(json));
       }
@@ -93,18 +109,18 @@ if (token && username) {
   }
 }
 
-const maxCount = Math.max(...weeks.map((w) => w.count), 1);
-
-const monthLabels = new Map<number, string>();
+// One label per week where the month changes, positioned over that week's column.
+const monthLabels: { index: number; label: string }[] = [];
 let lastMonth = -1;
-for (let i = 0; i < weeks.length; i++) {
-  if (!weeks[i].startDate) continue;
-  const month = new Date(weeks[i].startDate + 'T00:00:00').getMonth();
+weeks.forEach((week, i) => {
+  const firstDay = week.find((day) => day !== null);
+  if (!firstDay) return;
+  const month = new Date(firstDay.date + 'T00:00:00').getMonth();
   if (month !== lastMonth) {
-    monthLabels.set(i, MONTH_LABELS[month]);
+    monthLabels.push({ index: i, label: MONTH_LABELS[month] });
     lastMonth = month;
   }
-}
+});
 
 const hasData = weeks.length > 0;
 ---
@@ -117,41 +133,37 @@ const hasData = weeks.length > 0;
           <h3 class='text-zinc-400'>Activity</h3>
         </dt>
         <dd class='dd-entry'>
-          <div class='flex flex-col gap-2'>
+          <div class='flex flex-col gap-3'>
             <p>{totalContributions.toLocaleString()} contributions in the last year</p>
-            <div class='activity-chart relative w-full mt-4'>
-              <div class='flex items-end gap-0.5' style={`height: ${BAR_HEIGHT}px`}>
-                {weeks.map((week) => {
-                  const height = Math.max((week.count / maxCount) * BAR_HEIGHT, week.count > 0 ? 3 : 0);
-                  const opacity = week.count === 0 ? 0.15 : 0.4 + 0.6 * (week.count / maxCount);
-
-                  return (
-                    <div class='relative' style={`flex: 1 1 0; min-width: 0; height: 100%`}>
-                      <div
-                        class='peer absolute bottom-0 left-0 right-0 rounded-t-sm transition-all duration-200 ease-in-out hover:brightness-150'
-                        style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${opacity}`}
-                      />
-                      {week.count > 0 && (
-                        <span
-                          class='absolute left-1/2 -translate-x-1/2 text-[8px] text-white opacity-0 transition-opacity duration-150 ease-in-out pointer-events-none peer-hover:opacity-100'
-                          style={`bottom: ${height + 8}px`}
-                        >
-                          {week.count}
-                        </span>
-                      )}
+            <div class='overflow-x-auto pb-1'>
+              <div class='inline-block'>
+                <div class='relative h-4' style={`margin-left: ${DAY_LABEL_W}px`}>
+                  {monthLabels.map(({ index, label }) => (
+                    <span class='absolute top-0 text-[10px] text-zinc-500' style={`left: ${index * (CELL + GAP)}px`}>
+                      {label}
+                    </span>
+                  ))}
+                </div>
+                <div class='flex' style={`gap: ${GAP}px`}>
+                  <div class='flex flex-col' style={`gap: ${GAP}px; width: ${DAY_LABEL_W}px`}>
+                    {DAY_LABELS.map((label) => (
+                      <span class='flex items-center text-[10px] leading-none text-zinc-500' style={`height: ${CELL}px`}>
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                  {weeks.map((week) => (
+                    <div class='flex flex-col' style={`gap: ${GAP}px`}>
+                      {week.map((day) => (
+                        <div
+                          class='rounded-[2px] transition-[filter] duration-150 hover:brightness-150'
+                          style={`width: ${CELL}px; height: ${CELL}px; background-color: ${day ? (LEVEL_COLORS[day.level] ?? LEVEL_COLORS.NONE) : LEVEL_COLORS.NONE}`}
+                          title={day ? `${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}` : undefined}
+                        />
+                      ))}
                     </div>
-                  );
-                })}
-              </div>
-              <div class='relative h-5 mt-1'>
-                {Array.from(monthLabels.entries()).map(([weekIndex, label], i) => (
-                  <span
-                    class:list={['absolute text-xs text-zinc-500', { 'hidden sm:block': i % 2 !== 0 }]}
-                    style={`left: ${(weekIndex / weeks.length) * 100}%`}
-                  >
-                    {label}
-                  </span>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

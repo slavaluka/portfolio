@@ -42,7 +42,6 @@ const LEVEL_COLORS: Record<string, string> = {
   FOURTH_QUARTILE: '#39d353',
 };
 
-const CELL = 11; // px square
 const GAP = 3; // px between cells
 const DAY_LABEL_W = 26; // px width reserved for the Mon/Wed/Fri column
 
@@ -135,29 +134,32 @@ const hasData = weeks.length > 0;
         <dd class='dd-entry'>
           <div class='flex flex-col gap-3'>
             <p>{totalContributions.toLocaleString()} contributions in the last year</p>
-            <div class='overflow-x-auto pb-1'>
-              <div class='inline-block'>
-                <div class='relative h-4' style={`margin-left: ${DAY_LABEL_W}px`}>
-                  {monthLabels.map(({ index, label }) => (
-                    <span class='absolute top-0 text-[10px] text-zinc-500' style={`left: ${index * (CELL + GAP)}px`}>
+            <div class='flex flex-col gap-1'>
+              <div class='relative h-4' style={`margin-left: ${DAY_LABEL_W + GAP}px`}>
+                {monthLabels.map(({ index, label }, i) => (
+                  <span
+                    class:list={['absolute top-0 text-[10px] text-zinc-500', { 'hidden sm:block': i % 2 !== 0 }]}
+                    style={`left: ${(index / weeks.length) * 100}%`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <div class='flex' style={`gap: ${GAP}px`}>
+                <div class='flex shrink-0 flex-col' style={`gap: ${GAP}px; width: ${DAY_LABEL_W}px`}>
+                  {DAY_LABELS.map((label) => (
+                    <span class='flex items-center text-[9px] leading-none text-zinc-500' style='flex: 1 1 0'>
                       {label}
                     </span>
                   ))}
                 </div>
-                <div class='flex' style={`gap: ${GAP}px`}>
-                  <div class='flex flex-col' style={`gap: ${GAP}px; width: ${DAY_LABEL_W}px`}>
-                    {DAY_LABELS.map((label) => (
-                      <span class='flex items-center text-[10px] leading-none text-zinc-500' style={`height: ${CELL}px`}>
-                        {label}
-                      </span>
-                    ))}
-                  </div>
+                <div class='flex min-w-0 flex-1' style={`gap: ${GAP}px`}>
                   {weeks.map((week) => (
-                    <div class='flex flex-col' style={`gap: ${GAP}px`}>
+                    <div class='flex min-w-0 flex-1 flex-col' style={`gap: ${GAP}px`}>
                       {week.map((day) => (
                         <div
-                          class='rounded-[2px] transition-[filter] duration-150 hover:brightness-150'
-                          style={`width: ${CELL}px; height: ${CELL}px; background-color: ${day ? (LEVEL_COLORS[day.level] ?? LEVEL_COLORS.NONE) : LEVEL_COLORS.NONE}`}
+                          class='aspect-square rounded-[2px] transition-[filter] duration-150 hover:brightness-150'
+                          style={`background-color: ${day ? (LEVEL_COLORS[day.level] ?? LEVEL_COLORS.NONE) : LEVEL_COLORS.NONE}`}
                           title={day ? `${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}` : undefined}
                         />
                       ))}

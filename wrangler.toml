@@ -5,3 +5,8 @@ compatibility_flags = ["nodejs_compat"]
 # Keep the workers.dev URL active; set false once slvlkn.cc is attached as a custom domain.
 workers_dev = true
 preview_urls = false
+
+# Runtime bindings. GITHUB_USERNAME is public (rendered on the page); GITHUB_TOKEN is a
+# runtime Secret set in the Worker dashboard (Settings -> Variables and Secrets).
+[vars]
+GITHUB_USERNAME = "slavaluka"

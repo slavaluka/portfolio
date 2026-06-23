@@ -37,6 +37,10 @@ interface WeekSummary {
 let totalContributions = 0;
 let weeks: WeekSummary[] = [];
 
+if (!token || !username) {
+  console.error('GitHub activity: missing GITHUB_TOKEN or GITHUB_USERNAME at runtime.');
+}
+
 if (token && username) {
   try {
     const res = await fetch('https://api.github.com/graphql', {
@@ -44,6 +48,8 @@ if (token && username) {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
+        // GitHub's API 403s without a User-Agent, and Workers' fetch doesn't add one.
+        'User-Agent': username,
       },
       body: JSON.stringify({
         query: `query ($userName: String!) {
@@ -66,9 +72,11 @@ if (token && username) {
       }),
     });
 
-    if (res.ok) {
+    if (!res.ok) {
+      console.error('GitHub activity: request failed', res.status, await res.text());
+    } else {
       const json = (await res.json()) as GraphQLResponse;
-      if (json.data) {
+      if (json.data?.user) {
         const calendar = json.data.user.contributionsCollection.contributionCalendar;
         totalContributions = calendar.totalContributions;
         weeks = calendar.weeks.map((week) => ({
@@ -76,6 +84,8 @@ if (token && username) {
           startDate: week.contributionDays[0]?.date ?? '',
           endDate: week.contributionDays[week.contributionDays.length - 1]?.date ?? '',
         }));
+      } else {
+        console.error('GitHub activity: unexpected response', JSON.stringify(json));
       }
     }
   } catch (error) {

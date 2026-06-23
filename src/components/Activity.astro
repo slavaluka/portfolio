@@ -24,13 +24,11 @@ interface GraphQLResponse {
 }
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const BAR_COLOR = '#26a641';
 const BAR_HEIGHT = 96; // px chart height
 
 interface MonthBucket {
   label: string;
-  name: string;
   count: number;
 }
 
@@ -88,7 +86,7 @@ if (token && username) {
             if (bucket) {
               bucket.count += day.contributionCount;
             } else {
-              buckets.set(key, { label: MONTH_LABELS[d.getMonth()], name: MONTH_NAMES[d.getMonth()], count: day.contributionCount });
+              buckets.set(key, { label: MONTH_LABELS[d.getMonth()], count: day.contributionCount });
             }
           }
         }
@@ -127,7 +125,7 @@ const hasData = months.length > 0;
                         style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${m.count === 0 ? 0.15 : 1}`}
                       >
                         <span class='pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-2 py-1 text-[10px] leading-none text-zinc-100 shadow-lg ring-1 ring-white/10 sm:group-hover:block'>
-                          {m.count === 0 ? 'No contributions' : `${m.count.toLocaleString()} contribution${m.count === 1 ? '' : 's'}`} in {m.name}
+                          {m.count.toLocaleString()}
                         </span>
                       </div>
                     </div>

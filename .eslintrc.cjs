@@ -35,7 +35,7 @@ module.exports = {
         'import/no-unresolved': [
           'error',
           {
-            ignore: ['^astro:'],
+            ignore: ['^astro:', '^cloudflare:'],
           },
         ],
         'no-restricted-imports': [
@@ -65,35 +65,8 @@ module.exports = {
         'simple-import-sort/exports': 'error',
       },
     },
-    {
-      files: ['*.jsx', '*.tsx'],
-      extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
-      plugins: ['unused-imports', 'simple-import-sort'],
-      rules: {
-        'react/react-in-jsx-scope': 'off',
-        'react/jsx-uses-react': 'off',
-        'react/prop-types': 'off',
-        'react/no-unescaped-entities': 'warn',
-        '@typescript-eslint/no-unused-vars': 'off',
-        'unused-imports/no-unused-imports': 'error',
-        'unused-imports/no-unused-vars': [
-          'error',
-          {
-            args: 'after-used',
-            argsIgnorePattern: '^_',
-            vars: 'all',
-            varsIgnorePattern: '^_',
-          },
-        ],
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
-      },
-    },
   ],
   settings: {
-    react: {
-      version: 'detect',
-    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
       'astro-eslint-parser': ['.astro'],

@@ -10,14 +10,12 @@ Think of this repo as my little studio. I'm a design engineer who likes coding w
 
 ## What's inside
 
-- **Framework:** [Astro](https://astro.build) with React bits
+- **Framework:** [Astro](https://astro.build) (server-rendered)
 - **Styling:** Tailwind CSS v4
-- **Data Fetching:** SWR for the Spotify widget
+- **Data:** GitHub GraphQL API for the live activity graph
 - **Linting & Formatting:** ESLint + Prettier
-- **Hosting:** Vercel
+- **Hosting:** Cloudflare Workers
 - **Package Manager:** Bun
-
-> While React is my go-to, Astro’s rapid experimentation with new ideas and features made it impossible not to try — and it delivered.
 
 ## Run it locally
 
@@ -30,21 +28,30 @@ git clone https://github.com/slavaluka/portfolio.git
 # Install dependencies
 bun install
 
+# Copy the env template and add your GitHub token (powers the activity graph)
+cp .env.example .env
+
 # Start the dev server
-bun dev
+bun run dev
 ```
 
-The site shows up at `http://localhost:4321`
+The site shows up at `http://localhost:4308`
 
-## Build
+## Build & deploy
 
 ```bash
 # Build for production
-bun build
+bun run build
 
-# Preview production build locally
-bun preview
+# Preview the production build locally
+bun run preview
+
+# Deploy to Cloudflare Workers
+bun run deploy
 ```
+
+Runtime secrets (`GITHUB_TOKEN`, `GITHUB_USERNAME`) are read from the Worker
+environment in production — set them in the Cloudflare dashboard, not in the repo.
 
 ## Project structure
 
@@ -52,13 +59,15 @@ bun preview
 ├── public/              # Static assets (favicon, og-image, etc.)
 ├── src/
 │   ├── assets/         # Images and project icons
-│   ├── components/     # Astro & React components
+│   ├── components/     # Astro components
+│   │   ├── icons/      # Icon components
 │   │   └── ui/         # Reusable UI primitives
 │   ├── layouts/        # Page layouts
-│   ├── pages/          # Routes and API endpoints
+│   ├── pages/          # Routes
 │   ├── styles/         # Global CSS with Tailwind
-│   └── types/          # TypeScript definitions
-└── astro.config.mjs    # Astro configuration
+│   └── env.d.ts        # Ambient + Cloudflare runtime types
+├── astro.config.mjs     # Astro configuration
+└── wrangler.toml        # Cloudflare Workers configuration
 ```
 
 ## License

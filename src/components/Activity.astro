@@ -45,6 +45,11 @@ const LEVEL_COLORS: Record<string, string> = {
 const GAP = 3; // px between cells
 const DAY_LABEL_W = 26; // px width reserved for the Mon/Wed/Fri column
 
+const formatDate = (iso: string): string => {
+  const d = new Date(iso + 'T00:00:00');
+  return `${MONTH_LABELS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+};
+
 let totalContributions = 0;
 let weeks: (Day | null)[][] = [];
 
@@ -158,10 +163,16 @@ const hasData = weeks.length > 0;
                     <div class='flex min-w-0 flex-1 flex-col' style={`gap: ${GAP}px`}>
                       {week.map((day) => (
                         <div
-                          class='aspect-square rounded-[2px] transition-[filter] duration-150 hover:brightness-150'
+                          class='group relative aspect-square rounded-[2px] transition-[filter] duration-150 hover:brightness-150'
                           style={`background-color: ${day ? (LEVEL_COLORS[day.level] ?? LEVEL_COLORS.NONE) : LEVEL_COLORS.NONE}`}
-                          title={day ? `${day.count} contribution${day.count === 1 ? '' : 's'} on ${day.date}` : undefined}
-                        />
+                        >
+                          {day && (
+                            <span class='pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-2 py-1 text-[10px] leading-none text-zinc-100 shadow-lg ring-1 ring-white/10 sm:group-hover:block'>
+                              {day.count === 0 ? 'No contributions' : `${day.count} contribution${day.count === 1 ? '' : 's'}`} on{' '}
+                              {formatDate(day.date)}
+                            </span>
+                          )}
+                        </div>
                       ))}
                     </div>
                   ))}

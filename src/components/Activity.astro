@@ -15,7 +15,6 @@ interface GraphQLResponse {
             contributionDays: {
               date: string;
               contributionCount: number;
-              contributionLevel: string;
             }[];
           }[];
         };
@@ -26,16 +25,15 @@ interface GraphQLResponse {
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const BAR_COLOR = '#26a641';
-const BAR_HEIGHT = 80;
+const BAR_HEIGHT = 96; // px chart height
 
-interface WeekSummary {
+interface MonthBucket {
+  label: string;
   count: number;
-  startDate: string;
-  endDate: string;
 }
 
 let totalContributions = 0;
-let weeks: WeekSummary[] = [];
+let months: MonthBucket[] = [];
 
 if (!token || !username) {
   console.error('GitHub activity: missing GITHUB_TOKEN or GITHUB_USERNAME at runtime.');
@@ -61,7 +59,6 @@ if (token && username) {
                   contributionDays {
                     date
                     contributionCount
-                    contributionLevel
                   }
                 }
               }
@@ -79,11 +76,21 @@ if (token && username) {
       if (json.data?.user) {
         const calendar = json.data.user.contributionsCollection.contributionCalendar;
         totalContributions = calendar.totalContributions;
-        weeks = calendar.weeks.map((week) => ({
-          count: week.contributionDays.reduce((sum, day) => sum + day.contributionCount, 0),
-          startDate: week.contributionDays[0]?.date ?? '',
-          endDate: week.contributionDays[week.contributionDays.length - 1]?.date ?? '',
-        }));
+        // Sum daily counts into chronological month buckets (days arrive oldest-first).
+        const buckets = new Map<string, MonthBucket>();
+        for (const week of calendar.weeks) {
+          for (const day of week.contributionDays) {
+            const d = new Date(day.date + 'T00:00:00');
+            const key = `${d.getFullYear()}-${d.getMonth()}`;
+            const bucket = buckets.get(key);
+            if (bucket) {
+              bucket.count += day.contributionCount;
+            } else {
+              buckets.set(key, { label: MONTH_LABELS[d.getMonth()], count: day.contributionCount });
+            }
+          }
+        }
+        months = [...buckets.values()];
       } else {
         console.error('GitHub activity: unexpected response', JSON.stringify(json));
       }
@@ -93,20 +100,8 @@ if (token && username) {
   }
 }
 
-const maxCount = Math.max(...weeks.map((w) => w.count), 1);
-
-const monthLabels = new Map<number, string>();
-let lastMonth = -1;
-for (let i = 0; i < weeks.length; i++) {
-  if (!weeks[i].startDate) continue;
-  const month = new Date(weeks[i].startDate + 'T00:00:00').getMonth();
-  if (month !== lastMonth) {
-    monthLabels.set(i, MONTH_LABELS[month]);
-    lastMonth = month;
-  }
-}
-
-const hasData = weeks.length > 0;
+const maxCount = Math.max(...months.map((m) => m.count), 1);
+const hasData = months.length > 0;
 ---
 
 {
@@ -117,40 +112,29 @@ const hasData = weeks.length > 0;
           <h3 class='text-zinc-400'>Activity</h3>
         </dt>
         <dd class='dd-entry'>
-          <div class='flex flex-col gap-2'>
+          <div class='flex flex-col gap-3'>
             <p>{totalContributions.toLocaleString()} contributions in the last year</p>
-            <div class='activity-chart relative w-full mt-4'>
-              <div class='flex items-end gap-0.5' style={`height: ${BAR_HEIGHT}px`}>
-                {weeks.map((week) => {
-                  const height = Math.max((week.count / maxCount) * BAR_HEIGHT, week.count > 0 ? 3 : 0);
-                  const opacity = week.count === 0 ? 0.15 : 0.4 + 0.6 * (week.count / maxCount);
-
+            <div class='flex flex-col gap-1.5'>
+              <div class='flex items-end gap-1.5' style={`height: ${BAR_HEIGHT}px`}>
+                {months.map((m) => {
+                  const height = m.count === 0 ? 3 : Math.max((m.count / maxCount) * BAR_HEIGHT, 6);
                   return (
-                    <div class='relative' style={`flex: 1 1 0; min-width: 0; height: 100%`}>
+                    <div class='flex h-full min-w-0 flex-1 items-end'>
                       <div
-                        class='peer absolute bottom-0 left-0 right-0 rounded-t-sm transition-all duration-200 ease-in-out hover:brightness-150'
-                        style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${opacity}`}
-                      />
-                      {week.count > 0 && (
-                        <span
-                          class='absolute left-1/2 -translate-x-1/2 text-[8px] text-white opacity-0 transition-opacity duration-150 ease-in-out pointer-events-none peer-hover:opacity-100'
-                          style={`bottom: ${height + 8}px`}
-                        >
-                          {week.count}
+                        class='group relative w-full rounded-t-sm transition-[filter] duration-150 hover:z-20 hover:brightness-150'
+                        style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${m.count === 0 ? 0.15 : 1}`}
+                      >
+                        <span class='pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-2 py-1 text-[10px] leading-none text-zinc-100 shadow-lg ring-1 ring-white/10 sm:group-hover:block'>
+                          {m.count.toLocaleString()}
                         </span>
-                      )}
+                      </div>
                     </div>
                   );
                 })}
               </div>
-              <div class='relative h-5 mt-1'>
-                {Array.from(monthLabels.entries()).map(([weekIndex, label], i) => (
-                  <span
-                    class:list={['absolute text-xs text-zinc-500', { 'hidden sm:block': i % 2 !== 0 }]}
-                    style={`left: ${(weekIndex / weeks.length) * 100}%`}
-                  >
-                    {label}
-                  </span>
+              <div class='flex gap-1.5'>
+                {months.map((m) => (
+                  <span class='min-w-0 flex-1 text-center text-[10px] text-zinc-500'>{m.label}</span>
                 ))}
               </div>
             </div>

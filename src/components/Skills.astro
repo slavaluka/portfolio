@@ -1,40 +1,22 @@
 ---
-const skills = [
-  {
-    category: 'Core Engineering',
-    technologies: 'TypeScript (JavaScript), React, React Native, Expo, Next.js',
-  },
-  {
-    category: 'Backend & Data',
-    technologies: 'Node.js/Express, SQL, FHIR-based schemas',
-  },
-  {
-    category: 'Infrastructure & Delivery',
-    technologies: 'Docker, Kubernetes, CI/CD, GitHub Actions, Bun',
-  },
-  {
-    category: 'Quality & Tooling',
-    technologies: 'Jest, ESLint, Prettier, Storybook, Postman',
-  },
-  {
-    category: 'Design & Product Ops',
-    technologies: 'Tailwind CSS, NativeWind, Motion, Webflow, Figma, Linear',
-  },
-];
+import Badge from '@/components/ui/Badge.astro';
+
+const skills = ['Go', 'TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Expo'];
 ---
 
 <section id='skills-container'>
   <dl>
     <dt class='dt-entry'><h3 class='text-zinc-400'>Skills</h3></dt>
-    <dd class='dd-entry flex flex-col gap-3 *:space-y-0.5'>
-      {
-        skills.map((skill) => (
-          <div>
-            <p>{skill.category}</p>
-            <p class='caption'>{skill.technologies}</p>
-          </div>
-        ))
-      }
+    <dd class='dd-entry'>
+      <ul class='flex flex-wrap gap-1.5'>
+        {
+          skills.map((skill) => (
+            <li>
+              <Badge>{skill}</Badge>
+            </li>
+          ))
+        }
+      </ul>
     </dd>
   </dl>
 </section>

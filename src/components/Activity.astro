@@ -123,7 +123,7 @@ const hasData = months.length > 0;
                   return (
                     <div class='flex h-full min-w-0 flex-1 items-end'>
                       <div
-                        class='group relative w-full rounded-t-sm transition-[filter] duration-150 hover:brightness-150'
+                        class='group relative w-full rounded-t-sm transition-[filter] duration-150 hover:z-20 hover:brightness-150'
                         style={`height: ${height}px; background-color: ${BAR_COLOR}; opacity: ${m.count === 0 ? 0.15 : 1}`}
                       >
                         <span class='pointer-events-none absolute bottom-full left-1/2 z-10 mb-1.5 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-2 py-1 text-[10px] leading-none text-zinc-100 shadow-lg ring-1 ring-white/10 sm:group-hover:block'>
